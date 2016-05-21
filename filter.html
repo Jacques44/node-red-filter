@@ -1,7 +1,7 @@
 <script type="text/javascript">
     RED.nodes.registerType('filter', {
         category: 'function'
-        , color: '#a6bbcf'
+        , color: '#0099cc'
         , defaults: {
             name: { value:"" }
           , property: { value: "payload", required:true }
@@ -21,8 +21,8 @@
           , ignorecase: { value: "true" }
         }
         , inputs: 1
-        , outputs: 2
-        , icon: "function.png"
+        , outputs: 3
+        , icon: "input-split.png"
         , label: function() {
           return this.name || "filter";
         }
