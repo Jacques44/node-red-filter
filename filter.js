@@ -37,9 +37,13 @@ module.exports = function(RED) {
       
       this.on('input', function(msg) {
         // If no rx, bypass
-        if (rx == null || rx.test(getPropByString(msg, node.property)))
-          node.send([msg]);
-        else node.send([ null, msg ]);
+
+        var value = getPropByString(msg, node.property);
+
+        if (rx == null || rx.test(value))
+          node.send(msg);
+        else if (value !== undefined) node.send([ null, msg ]);
+        else node.send([ null, null, msg ]);
       });
     }
     RED.nodes.registerType("filter", filterMsg);
