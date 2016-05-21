@@ -12,10 +12,32 @@ module.exports = function(RED) {
         rx  = new RegExp(node.filter, options);
       }
       catch (exception) {
+        node.error(exception);
       }
+
+      // Source: http://stackoverflow.com/questions/6906108/in-javascript-how-can-i-dynamically-get-a-nested-property-of-an-object
+      function getPropByString(obj, propString) {
+          if (!propString)
+              return obj;
+
+          var prop, props = propString.split('.');
+
+          for (var i = 0, iLen = props.length - 1; i < iLen; i++) {
+              prop = props[i];
+
+              var candidate = obj[prop];
+              if (candidate !== undefined) {
+                  obj = candidate;
+              } else {
+                  break;
+              }
+          }
+          return obj[props[i]];
+      }      
       
       this.on('input', function(msg) {
-        if (rx!=null && msg.hasOwnProperty(node.property) && rx.test(msg[node.property]))
+        // If no rx, bypass
+        if (rx == null || rx.test(getPropByString(msg, node.property)))
           node.send([msg]);
         else node.send([ null, msg ]);
       });

@@ -1,7 +1,7 @@
 {
     "name"         : "node-red-contrib-filter-else",
     "license"      : "MIT",
-    "version"      : "0.0.1",
+    "version"      : "0.1.0",
     "description"  : "Filter messages using a regexp on the given message property.",
     "dependencies": {
     },
